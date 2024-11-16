@@ -11,8 +11,7 @@ It is a  Flask-based simple Python Application for a fictional chocolate house t
 
 1. Clone the repository:
 
-git clone <repository-url>
-cd L7Informatics-Task
+git clone https://github.com/mehul2312/L7Informatics-Task.git
 
 
 2. Create a virtual environment and activate it:( i have used env as environment name)
