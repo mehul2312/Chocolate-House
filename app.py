@@ -84,7 +84,7 @@ def init_db():
                     ('Cocoa Powder', 100.0, 'kg', FALSE),
                     ('Milk Powder', 50.0, 'kg', TRUE),
                     ('walnuts', 25.0, 'kg', TRUE),
-                    ('salt',1.0,'kg',FLASE)
+                    ('salt',1.0,'kg',FALSE)
             ''')
             
             conn.commit()
