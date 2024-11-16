@@ -12,12 +12,13 @@ It is a  Flask-based simple Python Application for a fictional chocolate house t
 1. Clone the repository:
 
 git clone <repository-url>
-cd L7Informatics Task
+cd L7Informatics-Task
 
 
 2. Create a virtual environment and activate it:( i have used env as environment name)
 
 python -m venv env
+
 source venv/bin/activate  , On Windows: venv\Scripts\activate
 
 
@@ -35,12 +36,12 @@ python app.py
 
 1. Build the Docker image:
 
-docker build -t  L7Informatics Task .
+docker build -t  L7Informatics-Task .
 
 
 2. Run the container:
 
-docker run -p 5000:5000 L7Informatics Task
+docker run -p 5000:5000 L7Informatics-Task
 
 
 ## API Endpoints
