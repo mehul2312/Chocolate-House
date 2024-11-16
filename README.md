@@ -35,12 +35,12 @@ It is a  Flask-based simple Python Application for a fictional chocolate house t
 
 1. Build the Docker image:
 
-   docker build -t  L7Informatics-Task .
+   docker build -t  l7informatics-task .
 
 
 2. Run the container:
 
-   docker run -p 5000:5000 L7Informatics-Task
+   docker run -p 5000:5000 l7informatics-task
 
 
 ## API Endpoints
