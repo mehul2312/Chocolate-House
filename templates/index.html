@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate House - Assignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF; /* Blue color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chocolate House Management</h1>
+
+    <!-- Flavors Section -->
+    <div class="section">
+        <h2>Flavors Management</h2>
+        <div class="form-group">
+            <h3>Add New Flavor</h3>
+            <form id="flavorForm">
+                <label for="flavorName">Name:</label>
+                <input type="text" id="flavorName" required>
+                
+                <label for="flavorSeason">Season:</label>
+                <select id="flavorSeason" required>
+                    <option value="Spring">Spring</option>
+                    <option value="Summer">Summer</option>
+                    <option value="Fall">Fall</option>
+                    <option value="Winter">Winter</option>
+                    <option value="All-Season">All-Season</option>
+                </select>
+                
+                <button type="submit">Add Flavor</button>
+            </form>
+        </div>
+        <div>
+            <h3>Current Flavors</h3>
+            <div id="flavorsResult" class="results"></div>
+        </div>
+    </div>
+
+    <!-- Ingredients Section -->
+    <div class="section">
+        <h2>Ingredients Management</h2>
+        <div class="form-group">
+            <h3>Add New Ingredient</h3>
+            <form id="ingredientForm">
+                <label for="ingredientName">Name:</label>
+                <input type="text" id="ingredientName" required>
+                
+                <label for="ingredientQuantity">Quantity:</label>
+                <input type="number" id="ingredientQuantity" step="0.1" required>
+                
+                <label for="ingredientUnit">Unit:</label>
+                <input type="text" id="ingredientUnit" required>
+                
+                <label for="ingredientAllergen">Allergen:</label>
+                <select id="ingredientAllergen" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+                
+                <button type="submit">Add Ingredient</button>
+            </form>
+        </div>
+        <div>
+            <h3>Current Ingredients</h3>
+            <div id="ingredientsResult" class="results"></div>
+        </div>
+    </div>
+
+    <!-- Suggestions Section -->
+    <div class="section">
+        <h2>Customer Suggestions</h2>
+        <div class="form-group">
+            <h3>Add New Suggestion</h3>
+            <form id="suggestionForm">
+                <label for="suggestionFlavor">Flavor Name:</label>
+                <input type="text" id="suggestionFlavor" required>
+                
+                <label for="suggestionAllergies">Allergies:</label>
+                <textarea id="suggestionAllergies"></textarea>
+                
+                <button type="submit">Submit Suggestion</button>
+            </form>
+        </div>
+        <div>
+            <h3>Current Suggestions</h3>
+            <div id="suggestionsResult" class="results"></div>
+        </div>
+    </div>
+
+    <script>
+        // function for API calls
+        async function apiCall(endpoint, method = 'GET', data = null) {
+            try {
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+                if (data) {
+                    options.body = JSON.stringify(data);
+                }
+                const response = await fetch(`http://localhost:5000${endpoint}`, options);
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                throw error;
+            }
+        }
+
+        // Flavors
+        async function getFlavors() {
+            try {
+                const flavors = await apiCall('/flavors');
+                document.getElementById('flavorsResult').innerHTML = 
+                    `<pre>${JSON.stringify(flavors, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('flavorsResult').innerHTML = 
+                    `<div class="error">Error loading flavors: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('flavorForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = {
+                    name: document.getElementById('flavorName').value,
+                    season: document.getElementById('flavorSeason').value,
+                    available: true
+                };
+                await apiCall('/flavors', 'POST', data);
+                alert('Flavor added, please refresh if needed!');
+                getFlavors();
+                e.target.reset();
+            } catch (error) {
+                alert(`Error adding flavor: ${error.message}`);
+            }
+        });
+
+        // Ingredients
+        async function getIngredients() {
+            try {
+                const ingredients = await apiCall('/ingredients');
+                document.getElementById('ingredientsResult').innerHTML = 
+                    `<pre>${JSON.stringify(ingredients, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('ingredientsResult').innerHTML = 
+                    `<div class="error">Error loading ingredients: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('ingredientForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = {
+                    name: document.getElementById('ingredientName').value,
+                    quantity: parseFloat(document.getElementById('ingredientQuantity').value),
+                    unit: document.getElementById('ingredientUnit').value,
+                    allergen: document.getElementById('ingredientAllergen').value === 'true'
+                };
+                await apiCall('/ingredients', 'POST', data);
+                alert('Ingredient added, Please refresh if needed!');
+                getIngredients();
+                e.target.reset();
+            } catch (error) {
+                alert(`Error adding ingredient: ${error.message}`);
+            }
+        });
+
+        // Suggestions
+        async function getSuggestions() {
+            try {
+                const suggestions = await apiCall('/suggestions');
+                document.getElementById('suggestionsResult').innerHTML = 
+                    `<pre>${JSON.stringify(suggestions, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('suggestionsResult').innerHTML = 
+                    `<div class="error">Error loading suggestions: ${error.message}</div>`;
+            }
+        }
+
+        document.getElementById('suggestionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const data = {
+                    flavor_name: document.getElementById('suggestionFlavor').value,
+                    allergies: document.getElementById('suggestionAllergies').value
+                };
+                await apiCall('/suggestions', 'POST', data);
+                alert('Thanks a lot!');
+                getSuggestions();
+                e.target.reset();
+            } catch (error) {
+                alert(`Error adding suggestion: ${error.message}`);
+            }
+        });
+
+        // Loading initial data
+        getFlavors();
+        getIngredients();
+        getSuggestions();
+    </script>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Mehul Chandak | USN: 1MV21CS054</p>
+    </div>
+
+</body>
+</html>
