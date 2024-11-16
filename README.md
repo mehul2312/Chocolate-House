@@ -103,7 +103,7 @@ curl -X POST http://localhost:5000/flavors \
      -H "Content-Type: application/json" \
      -d '{"name": "Berry Blast", "season": "Summer"}'
 
-#For powershell - use-
+# For powershell - use-
 
 Invoke-RestMethod -Uri "http://localhost:5000/flavors" `
     -Method Post `
@@ -128,7 +128,7 @@ curl -X PUT http://localhost:5000/ingredients/1 \
      -d '{"quantity": 75.0}'
 
 
-#For powershell, use the command in following manner instead of curl:
+# For powershell, use the command in following manner instead of curl:
 
 
 Invoke-RestMethod -Uri "http://localhost:5000/ingredients" `
@@ -146,7 +146,7 @@ curl -X POST http://localhost:5000/suggestions \
      -H "Content-Type: application/json" \
      -d '{"flavor_name": "Lavender White" , "allergies": "None"}'
 
-#For Powershell, use-
+# For Powershell, use-
 Invoke-RestMethod -Uri "http://localhost:5000/suggestions" `
     -Method Post `
     -Headers @{"Content-Type" = "application/json"} `
