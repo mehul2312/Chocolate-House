@@ -11,36 +11,36 @@ It is a  Flask-based simple Python Application for a fictional chocolate house t
 
 1. Clone the repository:
 
-git clone <repository-url>
-cd L7Informatics Task
+   git clone https://github.com/mehul2312/L7Informatics-Task.git
 
 
-2. Create a virtual environment and activate it:( i have used env as environment name)
+2. Create a virtual environment and activate it:
 
-python -m venv env
-source venv/bin/activate  , On Windows: venv\Scripts\activate
+   python -m venv env
+
+   source venv/bin/activate  , On Windows: venv\Scripts\activate
 
 
 3. Install dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 
 4. Run the application:
 
-python app.py
+    python app.py
 
 
 ### Docker Setup
 
 1. Build the Docker image:
 
-docker build -t  L7Informatics Task .
+   docker build -t  L7Informatics-Task .
 
 
 2. Run the container:
 
-docker run -p 5000:5000 L7Informatics Task
+   docker run -p 5000:5000 L7Informatics-Task
 
 
 ## API Endpoints
@@ -54,7 +54,6 @@ docker run -p 5000:5000 L7Informatics Task
 {
     "name": "Dark Chocolate Truffle",
     "season": "All-Season",
-    "description": "Classic dark chocolate",
     "available": true
 }
 ```
@@ -82,12 +81,13 @@ docker run -p 5000:5000 L7Informatics Task
 ```json
 {
     "flavor_name": "Maple Walnut",
-    "description": "Rich maple flavor with walnuts",
+   
     "allergies": "Contains nuts"
 }
 ```
 
 ## Manual Testing Steps
+
 After running the command - python app.py , go to the browser(chrome) and open the localhost server "http://localhost:5000/" and do all flavour addition, inventory operations and  enter suggestions. 
 (P.S.- Please refresh if needed)
 
@@ -136,18 +136,8 @@ curl http://localhost:5000/suggestions
 # Add new suggestion
 curl -X POST http://localhost:5000/suggestions \
      -H "Content-Type: application/json" \
-     -d '{"flavor_name": "Lavender White", "description": "Subtle lavender", "allergies": "None"}'
+     -d '{"flavor_name": "Lavender White" , "allergies": "None"}'
 
-### Edge Cases Covered
-
-1. Duplicate Entries:
-- Unique constraint on flavor names and ingredient names
-
-2. Data Validation:
-- Season must be one of: Spring, Summer, Autumn, Winter, All-Season
-- Quantity must be non-negative
-
-3. Error Handling
 
 
 ## Code Structure
@@ -158,12 +148,7 @@ curl -X POST http://localhost:5000/suggestions \
 - `templates`: it contains index.html for basic frontend. 
 - Database is automatically initialized with sample data , which is given in the code.
 
-## Some of the features and practices used
 
-1. Code Organization
-2. Error Handling
-3. Database and Constraints
-4. Documentation
 
 
 
