@@ -11,36 +11,36 @@ It is a  Flask-based simple Python Application for a fictional chocolate house t
 
 1. Clone the repository:
 
-git clone https://github.com/mehul2312/L7Informatics-Task.git
+   git clone https://github.com/mehul2312/L7Informatics-Task.git
 
 
-2. Create a virtual environment and activate it:( i have used env as environment name)
+2. Create a virtual environment and activate it:
 
-python -m venv env
+   python -m venv env
 
-source venv/bin/activate  , On Windows: venv\Scripts\activate
+   source venv/bin/activate  , On Windows: venv\Scripts\activate
 
 
 3. Install dependencies:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 
 4. Run the application:
 
-python app.py
+    python app.py
 
 
 ### Docker Setup
 
 1. Build the Docker image:
 
-docker build -t  L7Informatics-Task .
+   docker build -t  L7Informatics-Task .
 
 
 2. Run the container:
 
-docker run -p 5000:5000 L7Informatics-Task
+   docker run -p 5000:5000 L7Informatics-Task
 
 
 ## API Endpoints
